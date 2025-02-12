@@ -1,5 +1,5 @@
-const nombre_invitdos = ["hugo", "valor2", "valor3", "valor4"];
-const apellidos_invitdos = ["sansegundo", "valor2", "valor3", "valor4"];
+const nombre_invitdos = ["hugo", "biel", "joel", "guillem", "angelo", "andreu", "daniela", "luciana", "luciana", "oscar", "guzman", "sofia", "eric", "eric", "lila", "felix", "daniel"];
+const apellidos_invitdos = ["sansegundo", "vilarnau", "garcia", "cerdan", "vazquez", "sanchez", "quispe", "belen", "alnes", "bravo", "fernandez", "fernandez", "broos", "delamata", "diez", "balbin", "acosta"];
 
 const input_name = document.getElementById("name");
 const input_surname = document.getElementById("surname");

@@ -1,0 +1,19 @@
+@import url(general.css);
+
+body{
+    padding: 100px 20px;
+    overflow: hidden;
+
+    .header-title{
+    }
+
+    swiper-slide{
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--white);
+        border-radius: 20px;
+        color: black;
+    }
+}

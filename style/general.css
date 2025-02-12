@@ -2,6 +2,7 @@
 body{
     --white: #fff;
     --black: #000;
+    --gray: #313131;
 
     background-color: var(--black);
     color: var(--white);
