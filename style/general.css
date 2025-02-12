@@ -1,0 +1,22 @@
+
+body{
+    --white: #fff;
+    --black: #000;
+
+    background-color: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', Arial;
+    text-align: center;
+
+    .input{
+        all: unset;
+        border-bottom: 1px solid var(--white);
+        background: transparent;
+        outline: none;
+        padding: 0;
+        ::placeholder{
+            font-family: 'Impact', Arial;
+        }
+
+    }
+}
