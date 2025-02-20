@@ -7,10 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inicializar Swiper
     const swiperEl = document.querySelector('.mySwiper');
-    swiperEl.addEventListener('slidechange', function(event) {
+    swiperEl.addEventListener('swiperslidechange', function(event) {
         const activeIndex = event.detail[0].activeIndex;
         comprobarDiapositiva(activeIndex);
     });
+    
 });
 
 
@@ -37,17 +38,14 @@ function tiempoTranscurrido() {
 }
 
 
-function comprobarDiapositiva(){
-    console.log("aaa")
-    // const swiper_time = document.querySelector('[aria-label="3 / 6"]');
-    // const swiper_conffeti = document.querySelector('[aria-label="6 / 6"]');
+function comprobarDiapositiva(activeIndex){
     if (activeIndex === 2) {
         setInterval(tiempoTranscurrido, 1000);
     } else if (activeIndex === 5) {
         confetti({
             particleCount: 100,
-            spread: 70,
-            origin: { y: 0 }
+            spread: 50,
+            origin: { y: 1 }
         });
     }
 }
