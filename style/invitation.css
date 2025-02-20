@@ -1,19 +1,47 @@
 @import url(general.css);
 
 body{
-    padding: 100px 20px;
+    padding: 50px 20px;
     overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
 
     .header-title{
     }
 
+    .mySwiper {
+        transform: translate(-8px, 0px);
+    }
+
     swiper-slide{
+        padding: 10px;
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
         background-color: var(--white);
         border-radius: 20px;
         color: black;
+
+        h1, h2, h3{
+            opacity: 0;
+            transform: scale(0.8);
+            margin-block: 10px;
+            transition: all .4s ease-in-out;
+        }
+
+        h1 {
+            text-transform: uppercase;
+        }
+
+    }
+
+    .swiper-slide-active{
+        h1, h2, h3{
+            transform: scale(1);
+            opacity: 1;
+            margin-block: 10px;
+        }
     }
 }

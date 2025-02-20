@@ -1,6 +1,10 @@
-if (!localStorage.getItem("input_nameValue") && !localStorage.getItem("input_surnameValue")) {
+if (!localStorage.getItem("input_nameValue") || !localStorage.getItem("input_surnameValue")) {
     window.location.href = "index.html";
 }
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    start();
+}); 
 
 // Inicializar Swiper
 const swiper = new Swiper('.swiper-container', {
@@ -16,39 +20,35 @@ const swiper = new Swiper('.swiper-container', {
     }
 });
 
-// Fecha objetivo: 13 de enero de 2025
-const fechaObjetivo = new Date(2025, 0, 13); // Enero es el mes 0 en JavaScript
-let intervalo;
-
-function actualizarTiempo() {
-    const fechaActual = new Date();
-    const diferencia = fechaActual - fechaObjetivo;
-    const segundos = Math.floor(diferencia / 1000);
-    const minutos = Math.floor(segundos / 60);
-    const horas = Math.floor(minutos / 60);
-    const dias = Math.floor(horas / 24);
-    const meses = Math.floor(dias / 30.44); // Promedio de días en un mes
-
-    console.log(`Han pasado ${meses} meses, ${dias} días, ${horas} horas, ${minutos} minutos y ${segundos} segundos desde el 13 de enero de 2025.`);
+function start() {
+    var nombre_span = document.getElementById('nombre');
+    nombre_span.innerHTML = localStorage.getItem("input_nameValue");
+    setInterval(verificarSwiper, 1000);
 }
 
-function comprobarDiapositiva() {
-    // Verificar si la diapositiva activa tiene la clase 'swiper-slide-active'
-    const diapositivaActiva = document.querySelector('.swiper-slide-active');
-    
-    if (diapositivaActiva && diapositivaActiva === swiper.slides[0]) {
-        // Si estamos en la primera diapositiva, iniciar el contador en tiempo real
-        if (!intervalo) { // Solo iniciar si no hay un intervalo corriendo
-            intervalo = setInterval(actualizarTiempo, 1000);
-        }
-    } else {
-        // Si no estamos en la primera diapositiva, detener el contador
-        if (intervalo) {
-            clearInterval(intervalo);
-            intervalo = null; // Resetear el intervalo
-        }
+// Función para calcular el tiempo transcurrido desde el 13 de enero de 2025
+function tiempoTranscurrido() {
+    const fechaInicio = new Date('2025-01-13T23:00:00Z');
+    const fechaActual = new Date(); // Fecha actual
+    const span_time = document.getElementById("transcurred-time");
+
+    const diferencia = fechaActual.getTime() - fechaInicio.getTime();
+
+    const meses = Math.floor(diferencia / (2592000000));
+    const dias = Math.floor((diferencia - meses * 2592000000) / (86400000));
+    const horas = Math.floor((diferencia - meses * (2592000000) - dias * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+    span_time.innerHTML = `${meses}mes, ${dias}dias, ${horas}h, ${minutos}m y ${segundos}s`;
+}
+
+function verificarSwiper() {
+    const swiper_time = document.querySelector('[aria-label="3 / 6"]');
+    if (swiper_time && swiper_time.classList.contains('swiper-slide-active')) {
+        tiempoTranscurrido();
     }
 }
 
-// Llamar a la función de comprobación al principio
-comprobarDiapositiva();
+var Confetti=function(){var t=function(){return function(){this.gravity=10,this.particle_count=75,this.particle_size=1,this.explosion_power=25,this.destroy_target=!0,this.fade=!1}}(),e=function(){function e(n){var r=this;if(this.bursts=[],this.setCount=function(t){if("number"!=typeof t)throw new Error("Input must be of type 'number'");e.CONFIG.particle_count=t},this.setPower=function(t){if("number"!=typeof t)throw new Error("Input must be of type 'number'");e.CONFIG.explosion_power=t},this.setSize=function(t){if("number"!=typeof t)throw new Error("Input must be of type 'number'");e.CONFIG.particle_size=t},this.setFade=function(t){if("boolean"!=typeof t)throw new Error("Input must be of type 'boolean'");e.CONFIG.fade=t},this.destroyTarget=function(t){if("boolean"!=typeof t)throw new Error("Input must be of type 'boolean'");e.CONFIG.destroy_target=t},this.setupCanvasContext=function(){if(!e.CTX){var t=document.createElement("canvas");e.CTX=t.getContext("2d"),t.width=2*window.innerWidth,t.height=2*window.innerHeight,t.style.position="fixed",t.style.top="0",t.style.left="0",t.style.width="calc(100%)",t.style.height="calc(100%)",t.style.margin="0",t.style.padding="0",t.style.zIndex="999999999",t.style.pointerEvents="none",document.body.appendChild(t),window.addEventListener("resize",function(){t.width=2*window.innerWidth,t.height=2*window.innerHeight})}},this.setupElement=function(t){var n;r.element=document.getElementById(t),null===(n=r.element)||void 0===n||n.addEventListener("click",function(t){var n=new o(2*t.clientX,2*t.clientY);r.bursts.push(new i(n)),e.CONFIG.destroy_target&&(r.element.style.visibility="hidden")})},this.update=function(t){r.delta_time=(t-r.time)/1e3,r.time=t;for(var e=r.bursts.length-1;e>=0;e--)r.bursts[e].update(r.delta_time),0==r.bursts[e].particles.length&&r.bursts.splice(e,1);r.draw(),window.requestAnimationFrame(r.update)},!n)throw new Error("Missing id");e.CONFIG||(e.CONFIG=new t),this.time=(new Date).getTime(),this.delta_time=0,this.setupCanvasContext(),this.setupElement(n),window.requestAnimationFrame(this.update)}return e.prototype.draw=function(){s.clearScreen();for(var t=0,e=this.bursts;t<e.length;t++){e[t].draw()}},e}(),i=function(){function t(t){this.particles=[];for(var i=0;i<e.CONFIG.particle_count;i++)this.particles.push(new n(t))}return t.prototype.update=function(t){for(var e=this.particles.length-1;e>=0;e--)this.particles[e].update(t),this.particles[e].checkBounds()&&this.particles.splice(e,1)},t.prototype.draw=function(){for(var t=this.particles.length-1;t>=0;t--)this.particles[t].draw()},t}(),n=function(){function t(t){this.size=new o((16*Math.random()+4)*e.CONFIG.particle_size,(4*Math.random()+4)*e.CONFIG.particle_size),this.position=new o(t.x-this.size.x/2,t.y-this.size.y/2),this.velocity=r.generateVelocity(),this.rotation=360*Math.random(),this.rotation_speed=10*(Math.random()-.5),this.hue=360*Math.random(),this.opacity=100,this.lifetime=Math.random()+.25}return t.prototype.update=function(t){this.velocity.y+=e.CONFIG.gravity*(this.size.y/(10*e.CONFIG.particle_size))*t,this.velocity.x+=25*(Math.random()-.5)*t,this.velocity.y*=.98,this.velocity.x*=.98,this.position.x+=this.velocity.x,this.position.y+=this.velocity.y,this.rotation+=this.rotation_speed,e.CONFIG.fade&&(this.opacity-=this.lifetime)},t.prototype.checkBounds=function(){return this.position.y-2*this.size.x>2*window.innerHeight},t.prototype.draw=function(){s.drawRectangle(this.position,this.size,this.rotation,this.hue,this.opacity)},t}(),o=function(){return function(t,e){this.x=t||0,this.y=e||0}}(),r=function(){function t(){}return t.generateVelocity=function(){var t=Math.random()-.5,i=Math.random()-.7,n=Math.sqrt(t*t+i*i);return i/=n,new o((t/=n)*(Math.random()*e.CONFIG.explosion_power),i*(Math.random()*e.CONFIG.explosion_power))},t}(),s=function(){function t(){}return t.clearScreen=function(){e.CTX&&e.CTX.clearRect(0,0,2*window.innerWidth,2*window.innerHeight)},t.drawRectangle=function(t,i,n,o,r){e.CTX&&(e.CTX.save(),e.CTX.beginPath(),e.CTX.translate(t.x+i.x/2,t.y+i.y/2),e.CTX.rotate(n*Math.PI/180),e.CTX.rect(-i.x/2,-i.y/2,i.x,i.y),e.CTX.fillStyle="hsla("+o+"deg, 90%, 65%, "+r+"%)",e.CTX.fill(),e.CTX.restore())},t}();return e}();
+var confetti = new Confetti();
